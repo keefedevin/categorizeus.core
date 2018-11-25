@@ -1,0 +1,2 @@
+# categorizeus.core
+redux
