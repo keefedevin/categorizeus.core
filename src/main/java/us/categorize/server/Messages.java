@@ -12,36 +12,42 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import us.categorize.api.MessageStore;
+import us.categorize.api.MessageStoreNaiveImpl;
 import us.categorize.model.Message;
 
 @Path("/messages")
 public class Messages {
+	
+	protected MessageStore messageStore;
+	
+	public Messages() {
+		//TODO this is for testing purposes, this MUST be replaced by DI or something not stupid
+		this.messageStore = new MessageStoreNaiveImpl();
+	}
 	
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createMessage(Message message) {
-		message.setInternalId("42");
+		message = messageStore.createMessage(message);
 		return Response.status(200).entity(message).build();
 	}
 	
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response consumeTest(@QueryParam("tags") String tags) {
-		Message message = new Message();
-		message.setBody(tags);
-		return Response.status(200).entity(message).build();
+	public Response tagSearch(@QueryParam("tags") String tags) {
+		Message messages[] = messageStore.tagSearch(tags.split(","));
+		return Response.status(200).entity(messages).build();
 	}
 	
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response readMessage(@PathParam("id") String id) {
-		Message message = new Message();
-		message.setCreator("keefe");
-		message.setInternalId(id);
+		Message message = messageStore.readMessage(id);
 		return Response.status(200).entity(message).build();
 	}
 	
@@ -49,13 +55,7 @@ public class Messages {
 	@Path("{id}/thread")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response readMessageThread(@PathParam("id") String id) {
-		Message message = new Message();
-		message.setCreator("keefe");
-		message.setInternalId(id);
-		Message message2 = new Message();
-		message.setCreator("keefe2");
-		message.setInternalId(id+"2");
-		Message messages[] = new Message[] {message,message2};
+		Message messages[] = messageStore.readMessageThread(id);
 		return Response.status(200).entity(messages).build();
 	}
 	
@@ -63,10 +63,8 @@ public class Messages {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteMessage(@PathParam("id") String id) {
-		Message message = new Message();
-		message.setCreator("message deleted");
-		message.setInternalId(id);
-		return Response.status(200).entity(message).build();
+		boolean deleted = messageStore.deleteMessage(id);
+		return Response.status(200).entity(deleted).build();
 	}
 	
 	@PUT
@@ -74,29 +72,22 @@ public class Messages {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response tagMessage(@PathParam("id") String id, String[] tags) {
-		for(String t : tags) System.out.println(t);
-		Message message = new Message();
-		message.setInternalId(id);
-		message.setBody("Message has been tagged");
-		return Response.status(200).entity(message).build();
+		boolean success = messageStore.tagMessage(id, tags);
+		return Response.status(200).entity(success).build();
 	}
 	@PUT
 	@Path("{id}/tags/{tag}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response tagMessage(@PathParam("id") String id, @PathParam("tag") String tag) {
-		Message message = new Message();
-		message.setInternalId(id);
-		message.setBody("Message has been tagged as " + tag);
-		return Response.status(200).entity(message).build();
+	public Response addMessageTag(@PathParam("id") String id, @PathParam("tag") String tag) {
+		boolean success = messageStore.addMessageTag(id, tag);
+		return Response.status(200).entity(success).build();
 	}
 	@DELETE
 	@Path("{id}/tags/{tag}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeMessageTag(@PathParam("id") String id, @PathParam("tag") String tag) {
-		Message message = new Message();
-		message.setInternalId(id);
-		message.setBody("Message has tag removed " + tag);
-		return Response.status(200).entity(message).build();
+		boolean success = messageStore.removeMessageTag(id, tag);
+		return Response.status(200).entity(success).build();
 	}
 	
 
