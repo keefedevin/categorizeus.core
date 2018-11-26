@@ -2,7 +2,7 @@ package us.categorize.api;
 
 import us.categorize.model.User;
 
-public class UserStoreNaiveImpl implements UserStore {
+public class UserStoreStubImpl implements UserStore {
 
 	@Override
 	public User getPrincipal() {

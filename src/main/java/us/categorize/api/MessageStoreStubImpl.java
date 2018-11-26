@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import us.categorize.model.Message;
 
-public class MessageStoreNaiveImpl implements MessageStore {
+public class MessageStoreStubImpl implements MessageStore {
 
 	@Override
 	public Message createMessage(Message message) {

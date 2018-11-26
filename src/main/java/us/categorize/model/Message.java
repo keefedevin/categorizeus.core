@@ -1,6 +1,6 @@
 package us.categorize.model;
 
-public class Message {
+public class Message {//would it be a good idea to parameterize on message type?
 	private String internalId = "-1";
 	private String body = null;
 	private String creator;

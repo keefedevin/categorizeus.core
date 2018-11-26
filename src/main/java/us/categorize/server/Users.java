@@ -6,15 +6,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import us.categorize.Configuration;
 import us.categorize.api.UserStore;
-import us.categorize.api.UserStoreNaiveImpl;
+import us.categorize.api.UserStoreStubImpl;
 import us.categorize.model.User;
 
 @Path("/users")
 public class Users {
 	protected UserStore userStore;
 	public Users() {
-		this.userStore = new UserStoreNaiveImpl();
+		this.userStore = Configuration.instance().getUserStore();
 	}
 	@GET
 	@Path("principal")

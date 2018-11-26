@@ -5,12 +5,14 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-import us.categorize.model.Message;
+import us.categorize.api.MessageStoreStubImpl;
+import us.categorize.api.UserStoreStubImpl;
 
 public class Bootstrap {
 
 	public static void main(String[] args) throws Exception {
-
+		Configuration.instance().setMessageStore(new MessageStoreStubImpl());
+		Configuration.instance().setUserStore(new UserStoreStubImpl());
         Server server = new Server(8080);
 
         ServletContextHandler ctx = 

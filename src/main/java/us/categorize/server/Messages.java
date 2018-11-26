@@ -12,8 +12,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import us.categorize.Configuration;
 import us.categorize.api.MessageStore;
-import us.categorize.api.MessageStoreNaiveImpl;
+import us.categorize.api.MessageStoreStubImpl;
 import us.categorize.model.Message;
 
 @Path("/messages")
@@ -23,7 +24,7 @@ public class Messages {
 	
 	public Messages() {
 		//TODO this is for testing purposes, this MUST be replaced by DI or something not stupid
-		this.messageStore = new MessageStoreNaiveImpl();
+		this.messageStore = Configuration.instance().getMessageStore();
 	}
 	
 	@POST
