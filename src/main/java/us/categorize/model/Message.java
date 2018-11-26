@@ -1,13 +1,13 @@
 package us.categorize.model;
 
 public class Message {
-	private long internalId = -1;
+	private String internalId = "-1";
 	private String body = null;
 	private String creator;
-	public long getInternalId() {
+	public String getInternalId() {
 		return internalId;
 	}
-	public void setInternalId(long internalId) {
+	public void setInternalId(String internalId) {
 		this.internalId = internalId;
 	}
 	public String getBody() {
