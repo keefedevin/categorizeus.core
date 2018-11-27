@@ -1,19 +1,36 @@
 package us.categorize.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
-	private String id; 
-	private String displayName;
-	public String getId() {
+	private long id;
+	private String username;
+	private String email;
+	
+	@JsonIgnore
+	private String passhash;
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-	public String getDisplayName() {
-		return displayName;
+	public String getUsername() {
+		return username;
 	}
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPasshash() {
+		return passhash;
+	}
+	public void setPasshash(String passhash) {
+		this.passhash = passhash;
+	}
 }

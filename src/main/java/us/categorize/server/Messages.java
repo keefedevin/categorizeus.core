@@ -47,7 +47,7 @@ public class Messages {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response readMessage(@PathParam("id") String id) {
+	public Response readMessage(@PathParam("id") long id) {
 		Message message = messageStore.readMessage(id);
 		return Response.status(200).entity(message).build();
 	}
@@ -55,7 +55,7 @@ public class Messages {
 	@GET
 	@Path("{id}/thread")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response readMessageThread(@PathParam("id") String id) {
+	public Response readMessageThread(@PathParam("id") long id) {
 		Message messages[] = messageStore.readMessageThread(id);
 		return Response.status(200).entity(messages).build();
 	}
@@ -63,7 +63,7 @@ public class Messages {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteMessage(@PathParam("id") String id) {
+	public Response deleteMessage(@PathParam("id") long id) {
 		boolean deleted = messageStore.deleteMessage(id);
 		return Response.status(200).entity(deleted).build();
 	}
@@ -72,21 +72,21 @@ public class Messages {
 	@Path("{id}/tags")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response tagMessage(@PathParam("id") String id, String[] tags) {
+	public Response tagMessage(@PathParam("id") long id, String[] tags) {
 		boolean success = messageStore.tagMessage(id, tags);
 		return Response.status(200).entity(success).build();
 	}
 	@PUT
 	@Path("{id}/tags/{tag}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addMessageTag(@PathParam("id") String id, @PathParam("tag") String tag) {
+	public Response addMessageTag(@PathParam("id") long id, @PathParam("tag") String tag) {
 		boolean success = messageStore.addMessageTag(id, tag);
 		return Response.status(200).entity(success).build();
 	}
 	@DELETE
 	@Path("{id}/tags/{tag}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response removeMessageTag(@PathParam("id") String id, @PathParam("tag") String tag) {
+	public Response removeMessageTag(@PathParam("id") long id, @PathParam("tag") String tag) {
 		boolean success = messageStore.removeMessageTag(id, tag);
 		return Response.status(200).entity(success).build();
 	}

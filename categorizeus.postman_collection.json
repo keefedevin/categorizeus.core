@@ -21,7 +21,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/messages/someId",
+					"raw": "http://localhost:8080/v1/messages/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -30,7 +30,7 @@
 					"path": [
 						"v1",
 						"messages",
-						"someId"
+						"5"
 					]
 				}
 			},
@@ -83,7 +83,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/messages/someId/thread",
+					"raw": "http://localhost:8080/v1/messages/6/thread",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -92,7 +92,7 @@
 					"path": [
 						"v1",
 						"messages",
-						"someId",
+						"6",
 						"thread"
 					]
 				}
@@ -115,7 +115,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/messages/somemessageid",
+					"raw": "http://localhost:8080/v1/messages/7",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -124,7 +124,7 @@
 					"path": [
 						"v1",
 						"messages",
-						"somemessageid"
+						"7"
 					]
 				}
 			},
@@ -144,7 +144,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"internalId\": -1,\n    \"body\": \"this is my words\",\n    \"creator\": \"keefe\"\n}"
+					"raw": "{\n    \"id\": -1,\n    \"body\": \"this is my words\",\n    \"postedBy\": 42\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/v1/messages",
@@ -178,7 +178,7 @@
 					"raw": "[\"tag1\", \"tag2\",\"tag3\"]"
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/messages/messageid/tags",
+					"raw": "http://localhost:8080/v1/messages/6/tags",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -187,7 +187,7 @@
 					"path": [
 						"v1",
 						"messages",
-						"messageid",
+						"6",
 						"tags"
 					]
 				}
@@ -211,7 +211,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/messages/messageid/tags/tagX",
+					"raw": "http://localhost:8080/v1/messages/7/tags/tagX",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -220,7 +220,7 @@
 					"path": [
 						"v1",
 						"messages",
-						"messageid",
+						"7",
 						"tags",
 						"tagX"
 					]
@@ -245,7 +245,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/messages/messageid/tags/tagX",
+					"raw": "http://localhost:8080/v1/messages/5/tags/tagX",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -254,7 +254,7 @@
 					"path": [
 						"v1",
 						"messages",
-						"messageid",
+						"5",
 						"tags",
 						"tagX"
 					]

@@ -7,8 +7,10 @@ public class UserStoreStubImpl implements UserStore {
 	@Override
 	public User getPrincipal() {
 		User user = new User();
-		user.setDisplayName("currently logged in user");
-		user.setId("uuid");
+		user.setId(42);
+		user.setUsername("username");
+		user.setEmail("keefe@categorize.us");
+		user.setPasshash("secret stuff!");
 		return user;
 	}
 
