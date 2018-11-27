@@ -14,4 +14,14 @@ public class UserStoreStubImpl implements UserStore {
 		return user;
 	}
 
+	@Override
+	public boolean registerUser(User user) {
+		return true;
+	}
+
+	@Override
+	public boolean establishUserSession(User user) {
+		return true;
+	}
+
 }
