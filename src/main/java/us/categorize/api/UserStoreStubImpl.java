@@ -5,7 +5,7 @@ import us.categorize.model.User;
 public class UserStoreStubImpl implements UserStore {
 
 	@Override
-	public User getPrincipal() {
+	public User getPrincipal(String sessionKey) {
 		User user = new User();
 		user.setId(42);
 		user.setUsername("username");
@@ -20,7 +20,13 @@ public class UserStoreStubImpl implements UserStore {
 	}
 
 	@Override
-	public boolean establishUserSession(User user) {
+	public boolean establishUserSession(User user, String sessionKey) {
+		return true;
+	}
+
+	@Override
+	public boolean destroySessionUser(String sessionUUID) {
+		// TODO Auto-generated method stub
 		return true;
 	}
 

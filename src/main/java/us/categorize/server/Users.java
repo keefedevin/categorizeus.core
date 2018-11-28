@@ -21,7 +21,7 @@ public class Users {
 	@Path("principal")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getPrincipal() {
-		User user = userStore.getPrincipal();
+		User user = userStore.getPrincipal("replace with cookie");
 		return Response.status(200).entity(user).build();
 	}
 }
