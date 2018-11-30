@@ -3,6 +3,7 @@ package us.categorize.api;
 import java.util.Arrays;
 
 import us.categorize.model.Message;
+import us.categorize.model.MetaMessage;
 
 public class MessageStoreStubImpl implements MessageStore {
 
@@ -19,6 +20,22 @@ public class MessageStoreStubImpl implements MessageStore {
 		Message message2 = new Message();
 		message.setBody("Second Body");
 		return new Message[] {message, message2};
+	}
+	
+	@Override
+	public MetaMessage[] tagSearchFull(String[] tags) {
+		Message message = new Message();
+		message.setBody(Arrays.toString(tags));
+		MetaMessage meta1 = new MetaMessage();
+		meta1.setMessage(message);
+		Message message2 = new Message();
+		message2.setBody("Second Body");
+		MetaMessage meta2 = new MetaMessage();
+		meta2.setMessage(message2);
+		MetaMessage[] data = new MetaMessage[2];
+		data[0] = meta1;
+		data[1] = meta2;
+		return data;
 	}
 
 	@Override
@@ -76,5 +93,7 @@ public class MessageStoreStubImpl implements MessageStore {
 		message.setBody("Message has tag removed " + tag);
 		return true;
 	}
+
+
 
 }

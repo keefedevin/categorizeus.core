@@ -22,6 +22,7 @@ import us.categorize.Configuration;
 import us.categorize.api.Authorizer;
 import us.categorize.api.MessageStore;
 import us.categorize.model.Message;
+import us.categorize.model.MetaMessage;
 
 @Path("/messages")
 public class Messages {
@@ -69,12 +70,19 @@ public class Messages {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response tagSearch(@QueryParam("tags") String tags, @CookieParam("categorizeus") Cookie cookie) {
+	public Response tagSearch(@QueryParam("tags") String tags,@QueryParam("loadMetadata") String loadMetadata, @CookieParam("categorizeus") Cookie cookie) {
 		Response authCheck = authorizationCheck(cookie, "/messages", "GET");
 		if(authCheck!=null) return authCheck;
 		String tagArray[] = tags==null||"".equals(tags)?new String[] {}:tags.split(",");
-		Message messages[] = messageStore.tagSearch(tagArray);
-		ResponseBuilder response = Response.status(200).entity(messages);
+		boolean loadMeta = loadMetadata==null?false:Boolean.parseBoolean(loadMetadata);
+		ResponseBuilder response;
+		if(loadMeta) {
+			MetaMessage messages[] = messageStore.tagSearchFull(tagArray);
+			response = Response.status(200).entity(messages);
+		}else {
+			Message messages[] = messageStore.tagSearch(tagArray);
+			response = Response.status(200).entity(messages);			
+		}
 		response = ensureCookie(cookie, response);				
 		return response.build();
 	}
