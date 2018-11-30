@@ -26,6 +26,10 @@ public class Users {
 			return Response.noContent().status(404).build();
 		}
 		User user = userStore.getPrincipal(cookie.getValue());
+		if(user==null) {
+			return Response.noContent().status(404).build();
+		}
+		user.setPasshash(null);
 		return Response.status(200).entity(user).build();
 	}
 }
