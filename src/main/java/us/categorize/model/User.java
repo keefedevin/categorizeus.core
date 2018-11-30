@@ -6,9 +6,8 @@ public class User {
 	private long id;
 	private String username;
 	private String email;
-	
-	@JsonIgnore
 	private String passhash;
+	
 	public long getId() {
 		return id;
 	}
