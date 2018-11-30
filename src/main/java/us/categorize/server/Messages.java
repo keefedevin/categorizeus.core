@@ -72,8 +72,8 @@ public class Messages {
 	public Response tagSearch(@QueryParam("tags") String tags, @CookieParam("categorizeus") Cookie cookie) {
 		Response authCheck = authorizationCheck(cookie, "/messages", "GET");
 		if(authCheck!=null) return authCheck;
-		
-		Message messages[] = messageStore.tagSearch(tags.split(","));
+		String tagArray[] = tags==null||"".equals(tags)?new String[] {}:tags.split(",");
+		Message messages[] = messageStore.tagSearch(tagArray);
 		ResponseBuilder response = Response.status(200).entity(messages);
 		response = ensureCookie(cookie, response);				
 		return response.build();
