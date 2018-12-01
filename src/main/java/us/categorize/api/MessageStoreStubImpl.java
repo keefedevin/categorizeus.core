@@ -1,7 +1,9 @@
 package us.categorize.api;
 
+import java.io.InputStream;
 import java.util.Arrays;
 
+import us.categorize.model.Attachment;
 import us.categorize.model.Message;
 import us.categorize.model.MetaMessage;
 
@@ -92,6 +94,17 @@ public class MessageStoreStubImpl implements MessageStore {
 		message.setId(id);
 		message.setBody("Message has tag removed " + tag);
 		return true;
+	}
+
+	@Override
+	public Attachment createAttachment(Attachment attachment, InputStream inputStream) {
+		attachment.setId(42);
+		return attachment;
+	}
+
+	@Override
+	public Attachment readAttachment(Message message) {
+		return null;
 	}
 
 

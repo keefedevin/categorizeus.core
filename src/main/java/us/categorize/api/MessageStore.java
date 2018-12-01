@@ -1,5 +1,8 @@
 package us.categorize.api;
 
+import java.io.InputStream;
+
+import us.categorize.model.Attachment;
 import us.categorize.model.Message;
 import us.categorize.model.MetaMessage;
 
@@ -13,4 +16,6 @@ public interface MessageStore {
 	boolean tagMessage(long id, String tags[]);
 	boolean addMessageTag(long id, String tag);
 	boolean removeMessageTag(long id, String tag);
+	Attachment createAttachment(Attachment attachment, InputStream inputStream);
+	Attachment readAttachment(Message message);
 }

@@ -4,6 +4,8 @@ public class MetaMessage {
 	private User postedBy;
 	private String[] tags;
 	private Message message;
+	private Attachment attachment;
+	
 	public User getPostedBy() {
 		return postedBy;
 	}
@@ -22,6 +24,12 @@ public class MetaMessage {
 	}
 	public void setMessage(Message message) {
 		this.message = message;
+	}
+	public Attachment getAttachment() {
+		return attachment;
+	}
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
 	}
 	
 }
