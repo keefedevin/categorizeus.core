@@ -16,7 +16,7 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public Message[] tagSearch(String[] tags) {
+	public Message[] tagSearch(String[] tags, Integer pageOn, Integer pageSize) {
 		Message message = new Message();
 		message.setBody(Arrays.toString(tags));
 		Message message2 = new Message();
@@ -25,7 +25,7 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 	
 	@Override
-	public MetaMessage[] tagSearchFull(String[] tags) {
+	public MetaMessage[] tagSearchFull(String[] tags, Integer pageOn, Integer pageSize) {
 		Message message = new Message();
 		message.setBody(Arrays.toString(tags));
 		MetaMessage meta1 = new MetaMessage();

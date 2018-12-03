@@ -77,8 +77,11 @@ public class Messages {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response tagSearch(@QueryParam("tags") String tags, @QueryParam("loadMetadata") String loadMetadata,
-			@CookieParam("categorizeus") Cookie cookie) {
+	public Response tagSearch(@CookieParam("categorizeus") Cookie cookie, @QueryParam("tags") String tags, 
+			@QueryParam("loadMetadata") String loadMetadata,
+			@QueryParam("pageOn") Integer pageOn,
+			@QueryParam("pageSize") Integer pageSize
+			) {
 		Response authCheck = authorizationCheck(cookie, "/messages", "GET");
 		if (authCheck != null)
 			return authCheck;
@@ -86,10 +89,10 @@ public class Messages {
 		boolean loadMeta = loadMetadata == null ? false : Boolean.parseBoolean(loadMetadata);
 		ResponseBuilder response;
 		if (loadMeta) {
-			MetaMessage messages[] = messageStore.tagSearchFull(tagArray);
+			MetaMessage messages[] = messageStore.tagSearchFull(tagArray, pageOn, pageSize);
 			response = Response.status(200).entity(messages);
 		} else {
-			Message messages[] = messageStore.tagSearch(tagArray);
+			Message messages[] = messageStore.tagSearch(tagArray, pageOn, pageSize);
 			response = Response.status(200).entity(messages);
 		}
 		response = ensureCookie(cookie, response);

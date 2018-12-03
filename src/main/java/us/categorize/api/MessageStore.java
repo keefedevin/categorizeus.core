@@ -8,8 +8,8 @@ import us.categorize.model.MetaMessage;
 
 public interface MessageStore {
 	Message createMessage(Message message);//message serialized from transport is input
-	Message[] tagSearch(String tags[]);
-	MetaMessage[] tagSearchFull(String tags[]);
+	Message[] tagSearch(String tags[], Integer pageOn, Integer pageSize);
+	MetaMessage[] tagSearchFull(String tags[], Integer pageOn, Integer pageSize);
 	Message readMessage(long id);
 	Message[] readMessageThread(long id);
 	boolean deleteMessage(long id);
