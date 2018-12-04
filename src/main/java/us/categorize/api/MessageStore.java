@@ -11,7 +11,7 @@ public interface MessageStore {
 	Message[] tagSearch(String tags[], Integer pageOn, Integer pageSize);
 	MetaMessage[] tagSearchFull(String tags[], Integer pageOn, Integer pageSize);
 	Message readMessage(long id);
-	Message[] readMessageThread(long id);
+	MetaMessage[] readMessageThread(long id);
 	boolean deleteMessage(long id);
 	boolean tagMessage(long id, String tags[]);
 	boolean addMessageTag(long id, String tag);

@@ -142,7 +142,7 @@ public class Messages {
 		Response authCheck = authorizationCheck(cookie, "/messages/{id]/thread", "GET");
 		if (authCheck != null)
 			return authCheck;
-		Message messages[] = messageStore.readMessageThread(id);
+		MetaMessage messages[] = messageStore.readMessageThread(id);
 		ResponseBuilder response = Response.status(200).entity(messages);
 		response = ensureCookie(cookie, response);
 		return response.build();

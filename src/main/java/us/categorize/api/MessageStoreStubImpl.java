@@ -50,17 +50,19 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public Message[] readMessageThread(long id) {
+	public MetaMessage[] readMessageThread(long id) {
 		Message message = new Message();
-		message.setId(1);
-		message.setPostedBy(1);
-		message.setBody("the body");
+		message.setBody("abc123");
+		MetaMessage meta1 = new MetaMessage();
+		meta1.setMessage(message);
 		Message message2 = new Message();
-		message.setId(2);
-		message.setPostedBy(2);
-		message.setBody("the body");
-		Message messages[] = new Message[] {message,message2};
-		return messages;
+		message2.setBody("Second Body");
+		MetaMessage meta2 = new MetaMessage();
+		meta2.setMessage(message2);
+		MetaMessage[] data = new MetaMessage[2];
+		data[0] = meta1;
+		data[1] = meta2;
+		return data;
 	}
 
 	@Override
