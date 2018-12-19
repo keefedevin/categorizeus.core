@@ -1,8 +1,9 @@
-package us.categorize.api;
+package us.categorize.api.stub;
 
 import java.io.InputStream;
 import java.util.Arrays;
 
+import us.categorize.api.MessageStore;
 import us.categorize.model.Attachment;
 import us.categorize.model.Message;
 import us.categorize.model.MetaMessage;

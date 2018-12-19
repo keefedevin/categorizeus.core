@@ -35,7 +35,6 @@ public class Messages {
 
 	public Messages() {
 		// TODO this is for testing purposes, this MUST be replaced by DI or something
-		// not stupid
 		this.messageStore = Configuration.instance().getMessageStore();
 		this.authorizer = Configuration.instance().getAuthorizer();
 	}

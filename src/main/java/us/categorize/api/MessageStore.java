@@ -7,7 +7,7 @@ import us.categorize.model.Message;
 import us.categorize.model.MetaMessage;
 
 public interface MessageStore {
-	Message createMessage(Message message);//message serialized from transport is input
+	Message createMessage(Message message);//message marshalled from transport is input
 	Message[] tagSearch(String tags[], Integer pageOn, Integer pageSize);
 	MetaMessage[] tagSearchFull(String tags[], Integer pageOn, Integer pageSize);
 	Message readMessage(long id);

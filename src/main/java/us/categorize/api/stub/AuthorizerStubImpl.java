@@ -1,4 +1,6 @@
-package us.categorize.api;
+package us.categorize.api.stub;
+
+import us.categorize.api.Authorizer;
 
 public class AuthorizerStubImpl implements Authorizer {
 

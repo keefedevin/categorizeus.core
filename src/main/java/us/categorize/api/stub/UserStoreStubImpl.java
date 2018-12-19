@@ -1,5 +1,6 @@
-package us.categorize.api;
+package us.categorize.api.stub;
 
+import us.categorize.api.UserStore;
 import us.categorize.model.User;
 
 public class UserStoreStubImpl implements UserStore {

@@ -1,7 +1,5 @@
 package us.categorize.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class User {
 	private long id;
 	private String username;
