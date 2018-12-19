@@ -19,24 +19,30 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+
 import us.categorize.Configuration;
 import us.categorize.api.Authorizer;
 import us.categorize.api.MessageStore;
+import us.categorize.api.UserStore;
 import us.categorize.model.Attachment;
 import us.categorize.model.Message;
 import us.categorize.model.MetaMessage;
-import org.glassfish.jersey.media.multipart.*;
+import us.categorize.model.User;
 
 @Path("/messages")
 public class Messages {
 
 	protected MessageStore messageStore;
+	protected UserStore userStore;
 	protected Authorizer authorizer;
 
 	public Messages() {
 		// TODO this is for testing purposes, this MUST be replaced by DI or something
 		this.messageStore = Configuration.instance().getMessageStore();
 		this.authorizer = Configuration.instance().getAuthorizer();
+		this.userStore = Configuration.instance().getUserStore();
 	}
 
 	// TODO maybe this should be in a filter, but this is small and seems reasonable
@@ -46,6 +52,12 @@ public class Messages {
 		if (cookie != null)
 			System.out.println("Cookie is " + cookieValue);// TODO temp for debugging
 		if (!authorizer.authorize(cookieValue, path, method)) {
+			return Response.noContent().status(403).build();
+		}
+		return null;
+	}
+	private Response authorizationCheck(User user, String path, String method) {
+		if (!authorizer.authorize(user, path, method)) {
 			return Response.noContent().status(403).build();
 		}
 		return null;
@@ -165,10 +177,14 @@ public class Messages {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response tagMessage(@PathParam("id") long id, String[] tags, @CookieParam("categorizeus") Cookie cookie) {
-		Response authCheck = authorizationCheck(cookie, "/messages/{id}/tags", "PUT");
+		User user = null;
+		if(cookie!=null) {
+			user = userStore.getPrincipal(cookie.getValue());
+		}
+		Response authCheck = authorizationCheck(user, "/messages/{id}/tags", "PUT");
 		if (authCheck != null)
 			return authCheck;
-		boolean success = messageStore.tagMessage(id, tags);
+		boolean success = messageStore.tagMessage(id, tags, user);
 		ResponseBuilder response = Response.status(200).entity(success);
 		response = ensureCookie(cookie, response);
 		return response.build();
@@ -179,10 +195,14 @@ public class Messages {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addMessageTag(@PathParam("id") long id, @PathParam("tag") String tag,
 			@CookieParam("categorizeus") Cookie cookie) {
-		Response authCheck = authorizationCheck(cookie, "/messages/{id}/tags/{tag}", "PUT");
+		User user = null;
+		if(cookie!=null) {
+			user = userStore.getPrincipal(cookie.getValue());
+		}
+		Response authCheck = authorizationCheck(user, "/messages/{id}/tags/{tag}", "PUT");
 		if (authCheck != null)
 			return authCheck;
-		boolean success = messageStore.addMessageTag(id, tag);
+		boolean success = messageStore.addMessageTag(id, tag, user);
 		ResponseBuilder response = Response.status(200).entity(success);
 		response = ensureCookie(cookie, response);
 		return response.build();
@@ -193,10 +213,14 @@ public class Messages {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeMessageTag(@PathParam("id") long id, @PathParam("tag") String tag,
 			@CookieParam("categorizeus") Cookie cookie) {
-		Response authCheck = authorizationCheck(cookie, "/messages/{id}/tags/{tag}", "DELETE");
+		User user = null;
+		if(cookie!=null) {
+			user = userStore.getPrincipal(cookie.getValue());
+		}
+		Response authCheck = authorizationCheck(user, "/messages/{id}/tags/{tag}", "DELETE");
 		if (authCheck != null)
 			return authCheck;
-		boolean success = messageStore.removeMessageTag(id, tag);
+		boolean success = messageStore.removeMessageTag(id, tag, user);
 		ResponseBuilder response = Response.status(200).entity(success);
 		response = ensureCookie(cookie, response);
 		return response.build();

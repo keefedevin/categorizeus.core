@@ -7,6 +7,7 @@ import us.categorize.api.MessageStore;
 import us.categorize.model.Attachment;
 import us.categorize.model.Message;
 import us.categorize.model.MetaMessage;
+import us.categorize.model.User;
 
 public class MessageStoreStubImpl implements MessageStore {
 
@@ -75,7 +76,7 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public boolean tagMessage(long id, String[] tags) {
+	public boolean tagMessage(long id, String[] tags, User user) {
 		for(String t : tags) System.out.println(t);
 		Message message = new Message();
 		message.setId(7);
@@ -84,7 +85,7 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public boolean addMessageTag(long id, String tag) {
+	public boolean addMessageTag(long id, String tag, User user) {
 		Message message = new Message();
 		message.setId(id);
 		message.setBody("Message has been tagged as " + tag);
@@ -92,7 +93,7 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public boolean removeMessageTag(long id, String tag) {
+	public boolean removeMessageTag(long id, String tag, User user) {
 		Message message = new Message();
 		message.setId(id);
 		message.setBody("Message has tag removed " + tag);
