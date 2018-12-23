@@ -1,16 +1,16 @@
 package us.categorize.model;
 
 public class Message {//would it be a good idea to parameterize on message type?
-	private long id;
+	private String id;
 	private String body;
 	private String title;
-	private long postedBy;
-	private long repliesTo;
-	private long rootRepliesTo;
-	public long getId() {
+	private String postedBy;
+	private String repliesTo;
+	private String rootRepliesTo;
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getBody() {
@@ -25,22 +25,22 @@ public class Message {//would it be a good idea to parameterize on message type?
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public long getPostedBy() {
+	public String getPostedBy() {
 		return postedBy;
 	}
-	public void setPostedBy(long postedBy) {
+	public void setPostedBy(String postedBy) {
 		this.postedBy = postedBy;
 	}
-	public long getRepliesTo() {
+	public String getRepliesTo() {
 		return repliesTo;
 	}
-	public void setRepliesTo(long repliesTo) {
+	public void setRepliesTo(String repliesTo) {
 		this.repliesTo = repliesTo;
 	}
-	public long getRootRepliesTo() {
+	public String getRootRepliesTo() {
 		return rootRepliesTo;
 	}
-	public void setRootRepliesTo(long rootRepliesTo) {
+	public void setRootRepliesTo(String rootRepliesTo) {
 		this.rootRepliesTo = rootRepliesTo;
 	}
 	

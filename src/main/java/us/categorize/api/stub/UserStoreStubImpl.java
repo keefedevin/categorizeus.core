@@ -8,7 +8,7 @@ public class UserStoreStubImpl implements UserStore {
 	@Override
 	public User getPrincipal(String sessionKey) {
 		User user = new User();
-		user.setId(42);
+		user.setId(42+"");
 		user.setUsername("username");
 		user.setEmail("keefe@categorize.us");
 		user.setPasshash("secret stuff!");
@@ -32,7 +32,7 @@ public class UserStoreStubImpl implements UserStore {
 	}
 
 	@Override
-	public User getUser(long id) {
+	public User getUser(String id) {
 		User user = new User();
 		user.setId(id);
 		return user;

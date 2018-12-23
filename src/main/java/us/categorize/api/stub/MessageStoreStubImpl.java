@@ -13,7 +13,7 @@ public class MessageStoreStubImpl implements MessageStore {
 
 	@Override
 	public Message createMessage(Message message) {
-		message.setId(13);
+		message.setId(13+"");
 		return message;
 	}
 
@@ -43,16 +43,16 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public Message readMessage(long id) {
+	public Message readMessage(String id) {
 		Message message = new Message();
-		message.setPostedBy(42);
+		message.setPostedBy(""+42);
 		message.setTitle("title");
 		message.setBody("body");
 		return message;
 	}
 
 	@Override
-	public MetaMessage[] readMessageThread(long id) {
+	public MetaMessage[] readMessageThread(String id) {
 		Message message = new Message();
 		message.setBody("abc123");
 		MetaMessage meta1 = new MetaMessage();
@@ -68,7 +68,7 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public boolean deleteMessage(long id) {
+	public boolean deleteMessage(String id) {
 		Message message = new Message();
 		message.setBody("message deleted");
 		message.setId(id);
@@ -76,16 +76,16 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public boolean tagMessage(long id, String[] tags, User user) {
+	public boolean tagMessage(String id, String[] tags, User user) {
 		for(String t : tags) System.out.println(t);
 		Message message = new Message();
-		message.setId(7);
+		message.setId(7+"");
 		message.setBody("Message has been tagged");
 		return true;
 	}
 
 	@Override
-	public boolean addMessageTag(long id, String tag, User user) {
+	public boolean addMessageTag(String id, String tag, User user) {
 		Message message = new Message();
 		message.setId(id);
 		message.setBody("Message has been tagged as " + tag);
@@ -93,7 +93,7 @@ public class MessageStoreStubImpl implements MessageStore {
 	}
 
 	@Override
-	public boolean removeMessageTag(long id, String tag, User user) {
+	public boolean removeMessageTag(String id, String tag, User user) {
 		Message message = new Message();
 		message.setId(id);
 		message.setBody("Message has tag removed " + tag);
@@ -102,7 +102,7 @@ public class MessageStoreStubImpl implements MessageStore {
 
 	@Override
 	public Attachment createAttachment(Attachment attachment, InputStream inputStream) {
-		attachment.setId(42);
+		attachment.setId(42+"");
 		return attachment;
 	}
 

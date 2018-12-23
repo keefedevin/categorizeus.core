@@ -76,9 +76,14 @@ public class Messages {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createMessage(Message message, @CookieParam("categorizeus") Cookie cookie) {
-		Response authCheck = authorizationCheck(cookie, "/messages", "POST");
+		User user = null;
+		if(cookie!=null) {
+			user = userStore.getPrincipal(cookie.getValue());
+		}
+		Response authCheck = authorizationCheck(user, "/messages", "POST");
 		if (authCheck != null)
 			return authCheck;
+		message.setPostedBy(user.getId());
 		message = messageStore.createMessage(message);
 		ResponseBuilder response = Response.status(200).entity(message);
 		response = ensureCookie(cookie, response);
@@ -113,7 +118,7 @@ public class Messages {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response readMessage(@PathParam("id") long id, @CookieParam("categorizeus") Cookie cookie) {
+	public Response readMessage(@PathParam("id") String id, @CookieParam("categorizeus") Cookie cookie) {
 		Response authCheck = authorizationCheck(cookie, "/messages/{id}", "GET");
 		if (authCheck != null)
 			return authCheck;
@@ -128,7 +133,7 @@ public class Messages {
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addAttachment(@CookieParam("categorizeus") Cookie cookie,
-			@PathParam("id") long id,
+			@PathParam("id") String id,
 			@FormDataParam("file") InputStream uploadedInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileDetail) {
 		Response authCheck = authorizationCheck(cookie, "/messages/{id}/attachments", "POST");
@@ -149,7 +154,7 @@ public class Messages {
 	@GET
 	@Path("{id}/thread")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response readMessageThread(@PathParam("id") long id, @CookieParam("categorizeus") Cookie cookie) {
+	public Response readMessageThread(@PathParam("id") String id, @CookieParam("categorizeus") Cookie cookie) {
 		Response authCheck = authorizationCheck(cookie, "/messages/{id]/thread", "GET");
 		if (authCheck != null)
 			return authCheck;
@@ -162,7 +167,7 @@ public class Messages {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteMessage(@PathParam("id") long id, @CookieParam("categorizeus") Cookie cookie) {
+	public Response deleteMessage(@PathParam("id") String id, @CookieParam("categorizeus") Cookie cookie) {
 		Response authCheck = authorizationCheck(cookie, "/messages/{id}", "DELETE");
 		if (authCheck != null)
 			return authCheck;
@@ -176,7 +181,7 @@ public class Messages {
 	@Path("{id}/tags")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response tagMessage(@PathParam("id") long id, String[] tags, @CookieParam("categorizeus") Cookie cookie) {
+	public Response tagMessage(@PathParam("id") String id, String[] tags, @CookieParam("categorizeus") Cookie cookie) {
 		User user = null;
 		if(cookie!=null) {
 			user = userStore.getPrincipal(cookie.getValue());
@@ -193,7 +198,7 @@ public class Messages {
 	@PUT
 	@Path("{id}/tags/{tag}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addMessageTag(@PathParam("id") long id, @PathParam("tag") String tag,
+	public Response addMessageTag(@PathParam("id") String id, @PathParam("tag") String tag,
 			@CookieParam("categorizeus") Cookie cookie) {
 		User user = null;
 		if(cookie!=null) {
@@ -211,7 +216,7 @@ public class Messages {
 	@DELETE
 	@Path("{id}/tags/{tag}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response removeMessageTag(@PathParam("id") long id, @PathParam("tag") String tag,
+	public Response removeMessageTag(@PathParam("id") String id, @PathParam("tag") String tag,
 			@CookieParam("categorizeus") Cookie cookie) {
 		User user = null;
 		if(cookie!=null) {
