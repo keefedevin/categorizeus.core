@@ -57,7 +57,7 @@ public class Messages {
 		return null;
 	}
 	private Response authorizationCheck(User user, String path, String method) {
-		if (!authorizer.authorize(user, path, method)) {
+		if (user==null || !authorizer.authorize(user, path, method)) {
 			return Response.noContent().status(403).build();
 		}
 		return null;
