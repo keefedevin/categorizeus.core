@@ -1,6 +1,6 @@
 package us.categorize.model;
 
-public class Tag {
+public class Tag {//debatable whether this class should exist
 	private String id;
 	private String tag;
 	public String getId() {
