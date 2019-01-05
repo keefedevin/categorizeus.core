@@ -2,7 +2,7 @@ package us.categorize.model;
 
 public class MetaMessage {
 	private User postedBy;
-	private String[] tags;
+	private String[] tags;//this may be relative to query context
 	private Message message;
 	private Attachment attachment;
 	

@@ -1,12 +1,12 @@
 package us.categorize.model;
 
-public class Tag {
-	private long id;
+public class Tag {//debatable whether this class should exist
+	private String id;
 	private String tag;
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTag() {

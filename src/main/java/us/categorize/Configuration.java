@@ -11,6 +11,8 @@ public class Configuration {
 	private MessageStore messageStore;//TODO this is awful
 	private Authorizer authorizer;//TODO still awful
 	
+	private String googleClientId, googleClientSecret;//TODO the horror continues
+
 	private Configuration() {
 		
 	}
@@ -43,5 +45,21 @@ public class Configuration {
 
 	public void setAuthorizer(Authorizer authorizer) {
 		this.authorizer = authorizer;
+	}
+
+	public String getGoogleClientId() {
+		return googleClientId;
+	}
+
+	public void setGoogleClientId(String googleClientId) {
+		this.googleClientId = googleClientId;
+	}
+
+	public String getGoogleClientSecret() {
+		return googleClientSecret;
+	}
+
+	public void setGoogleClientSecret(String googleClientSecret) {
+		this.googleClientSecret = googleClientSecret;
 	}
 }

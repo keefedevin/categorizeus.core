@@ -1,15 +1,19 @@
 package us.categorize.model;
 
 public class User {
-	private long id;
+	private String id;
 	private String username;
 	private String email;
-	private String passhash;
+	private String name;
+	private String givenName;
+	private String familyName;
+	private String passhash;//probably does not belong here
+	private boolean authorized;
 	
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getUsername() {
@@ -29,5 +33,29 @@ public class User {
 	}
 	public void setPasshash(String passhash) {
 		this.passhash = passhash;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getGivenName() {
+		return givenName;
+	}
+	public void setGivenName(String givenName) {
+		this.givenName = givenName;
+	}
+	public String getFamilyName() {
+		return familyName;
+	}
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
+	}
+	public boolean isAuthorized() {
+		return authorized;
+	}
+	public void setAuthorized(boolean authorized) {
+		this.authorized = authorized;
 	}
 }

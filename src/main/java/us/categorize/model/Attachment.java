@@ -1,16 +1,16 @@
 package us.categorize.model;
 
 public class Attachment {
-	private long id;
+	private String id;
 	private String filename;
-	private long length;
-	private long messageId;
+	private Long length;
+	private String messageId;
 	private String extension;
 	
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getFilename() {
@@ -19,16 +19,16 @@ public class Attachment {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public long getLength() {
+	public Long getLength() {
 		return length;
 	}
-	public void setLength(long length) {
+	public void setLength(Long length) {
 		this.length = length;
 	}
-	public long getMessageId() {
+	public String getMessageId() {
 		return messageId;
 	}
-	public void setMessageId(long messageId) {
+	public void setMessageId(String messageId) {
 		this.messageId = messageId;
 	}
 	public String getExtension() {
