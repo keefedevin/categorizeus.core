@@ -8,7 +8,7 @@ import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import us.categorize.Configuration;
+import us.categorize.CategorizeUs;
 import us.categorize.api.UserStore;
 import us.categorize.model.User;
 
@@ -16,7 +16,7 @@ import us.categorize.model.User;
 public class Users {
 	protected UserStore userStore;
 	public Users() {
-		this.userStore = Configuration.instance().getUserStore();
+		this.userStore = CategorizeUs.instance().getUserStore();
 	}
 	@GET
 	@Path("principal")

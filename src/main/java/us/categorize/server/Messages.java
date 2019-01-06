@@ -22,7 +22,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import us.categorize.Configuration;
+import us.categorize.CategorizeUs;
 import us.categorize.api.Authorizer;
 import us.categorize.api.MessageStore;
 import us.categorize.api.UserStore;
@@ -40,9 +40,9 @@ public class Messages {
 
 	public Messages() {
 		// TODO this is for testing purposes, this MUST be replaced by DI or something
-		this.messageStore = Configuration.instance().getMessageStore();
-		this.authorizer = Configuration.instance().getAuthorizer();
-		this.userStore = Configuration.instance().getUserStore();
+		this.messageStore = CategorizeUs.instance().getMessageStore();
+		this.authorizer = CategorizeUs.instance().getAuthorizer();
+		this.userStore = CategorizeUs.instance().getUserStore();
 	}
 
 	// TODO maybe this should be in a filter, but this is small and seems reasonable

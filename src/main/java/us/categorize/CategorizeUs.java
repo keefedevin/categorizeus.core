@@ -4,23 +4,23 @@ import us.categorize.api.Authorizer;
 import us.categorize.api.MessageStore;
 import us.categorize.api.UserStore;
 
-public class Configuration {
+public class CategorizeUs {
 	
-	private static Configuration singleton;
+	private static CategorizeUs singleton;
 	private UserStore userStore; //TODO this is awful
 	private MessageStore messageStore;//TODO this is awful
 	private Authorizer authorizer;//TODO still awful
 	
 	private String googleClientId, googleClientSecret;//TODO the horror continues
 
-	private Configuration() {
+	private CategorizeUs() {
 		
 	}
 	
-	public static Configuration instance() {
+	public static CategorizeUs instance() {
 		//double locking problem
 		//TODO this must be replaced with DI or something not stupid like this
-		if(singleton==null) singleton = new Configuration();
+		if(singleton==null) singleton = new CategorizeUs();
 		return singleton;
 	}
 	public UserStore getUserStore() {
