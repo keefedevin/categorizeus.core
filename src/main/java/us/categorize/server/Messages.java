@@ -22,7 +22,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import us.categorize.Configuration;
+import us.categorize.CategorizeUs;
 import us.categorize.api.Authorizer;
 import us.categorize.api.MessageStore;
 import us.categorize.api.UserStore;
@@ -40,9 +40,9 @@ public class Messages {
 
 	public Messages() {
 		// TODO this is for testing purposes, this MUST be replaced by DI or something
-		this.messageStore = Configuration.instance().getMessageStore();
-		this.authorizer = Configuration.instance().getAuthorizer();
-		this.userStore = Configuration.instance().getUserStore();
+		this.messageStore = CategorizeUs.instance().getMessageStore();
+		this.authorizer = CategorizeUs.instance().getAuthorizer();
+		this.userStore = CategorizeUs.instance().getUserStore();
 	}
 
 	// TODO maybe this should be in a filter, but this is small and seems reasonable
@@ -56,8 +56,9 @@ public class Messages {
 		}
 		return null;
 	}
+
 	private Response authorizationCheck(User user, String path, String method) {
-		if (user==null || !authorizer.authorize(user, path, method)) {
+		if (user == null || !authorizer.authorize(user, path, method)) {
 			return Response.noContent().status(403).build();
 		}
 		return null;
@@ -77,7 +78,7 @@ public class Messages {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createMessage(Message message, @CookieParam("categorizeus") Cookie cookie) {
 		User user = null;
-		if(cookie!=null) {
+		if (cookie != null) {
 			user = userStore.getPrincipal(cookie.getValue());
 		}
 		Response authCheck = authorizationCheck(user, "/messages", "POST");
@@ -93,11 +94,9 @@ public class Messages {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response tagSearch(@CookieParam("categorizeus") Cookie cookie, @QueryParam("tags") String tags, 
-			@QueryParam("loadMetadata") String loadMetadata,
-			@QueryParam("pageOn") Integer pageOn,
-			@QueryParam("pageSize") Integer pageSize
-			) {
+	public Response tagSearch(@CookieParam("categorizeus") Cookie cookie, @QueryParam("tags") String tags,
+			@QueryParam("loadMetadata") String loadMetadata, @QueryParam("pageOn") Integer pageOn,
+			@QueryParam("pageSize") Integer pageSize) {
 		Response authCheck = authorizationCheck(cookie, "/messages", "GET");
 		if (authCheck != null)
 			return authCheck;
@@ -132,14 +131,12 @@ public class Messages {
 	@Path("{id}/attachments")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addAttachment(@CookieParam("categorizeus") Cookie cookie,
-			@PathParam("id") String id,
+	public Response addAttachment(@CookieParam("categorizeus") Cookie cookie, @PathParam("id") String id,
 			@FormDataParam("file") InputStream uploadedInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileDetail) {
 		Response authCheck = authorizationCheck(cookie, "/messages/{id}/attachments", "POST");
 		if (authCheck != null)
 			return authCheck;
-		System.out.println("What do we have here?");
 		Attachment attachment = new Attachment();
 		attachment.setFilename(fileDetail.getFileName());
 		attachment.setLength(fileDetail.getSize());
@@ -183,7 +180,7 @@ public class Messages {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response tagMessage(@PathParam("id") String id, String[] tags, @CookieParam("categorizeus") Cookie cookie) {
 		User user = null;
-		if(cookie!=null) {
+		if (cookie != null) {
 			user = userStore.getPrincipal(cookie.getValue());
 		}
 		Response authCheck = authorizationCheck(user, "/messages/{id}/tags", "PUT");
@@ -201,7 +198,7 @@ public class Messages {
 	public Response addMessageTag(@PathParam("id") String id, @PathParam("tag") String tag,
 			@CookieParam("categorizeus") Cookie cookie) {
 		User user = null;
-		if(cookie!=null) {
+		if (cookie != null) {
 			user = userStore.getPrincipal(cookie.getValue());
 		}
 		Response authCheck = authorizationCheck(user, "/messages/{id}/tags/{tag}", "PUT");
@@ -219,7 +216,7 @@ public class Messages {
 	public Response removeMessageTag(@PathParam("id") String id, @PathParam("tag") String tag,
 			@CookieParam("categorizeus") Cookie cookie) {
 		User user = null;
-		if(cookie!=null) {
+		if (cookie != null) {
 			user = userStore.getPrincipal(cookie.getValue());
 		}
 		Response authCheck = authorizationCheck(user, "/messages/{id}/tags/{tag}", "DELETE");
