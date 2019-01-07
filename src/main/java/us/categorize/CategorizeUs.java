@@ -12,7 +12,7 @@ public class CategorizeUs {
 	private Authorizer authorizer;//TODO still awful
 	
 	private String googleClientId, googleClientSecret;//TODO the horror continues
-
+	private String host = "http://localhost:8080";
 	private CategorizeUs() {
 		
 	}
@@ -61,5 +61,13 @@ public class CategorizeUs {
 
 	public void setGoogleClientSecret(String googleClientSecret) {
 		this.googleClientSecret = googleClientSecret;
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
 	}
 }
