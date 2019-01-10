@@ -19,4 +19,5 @@ public interface MessageStore {
 	boolean removeMessageTag(String id, String tag, User user);
 	Attachment createAttachment(Attachment attachment, InputStream inputStream);
 	Attachment readAttachment(Message message);
+	Attachment updateAttachment(Attachment attachment);
 }
