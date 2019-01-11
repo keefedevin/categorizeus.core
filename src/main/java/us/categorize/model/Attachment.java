@@ -4,7 +4,6 @@ public class Attachment {
 	private String id;
 	private String filename;
 	private Long length;
-	private String messageId;
 	private String extension;
 	
 	public String getId() {
@@ -24,12 +23,6 @@ public class Attachment {
 	}
 	public void setLength(Long length) {
 		this.length = length;
-	}
-	public String getMessageId() {
-		return messageId;
-	}
-	public void setMessageId(String messageId) {
-		this.messageId = messageId;
 	}
 	public String getExtension() {
 		return extension;
