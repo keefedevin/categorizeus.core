@@ -1,10 +1,12 @@
 package us.categorize.model;
 
+import java.util.List;
+
 public class MetaMessage {
 	private User postedBy;
 	private String[] tags;//this may be relative to query context
 	private Message message;
-	private Attachment attachment;
+	private List<Attachment> attachments;
 	
 	public User getPostedBy() {
 		return postedBy;
@@ -25,11 +27,11 @@ public class MetaMessage {
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-	public Attachment getAttachment() {
-		return attachment;
+	public List<Attachment> getAttachments() {
+		return attachments;
 	}
-	public void setAttachment(Attachment attachment) {
-		this.attachment = attachment;
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
 	}
 	
 }

@@ -139,9 +139,15 @@ public class Messages {
 			return authCheck;
 		Attachment attachment = new Attachment();
 		attachment.setFilename(fileDetail.getFileName());
+		String fn = attachment.getFilename();
+		if(fn!=null) {
+			attachment.setExtension(fn.substring(fn.lastIndexOf('.')));
+		}
 		attachment.setLength(fileDetail.getSize());
-		attachment.setMessageId(id);
 		messageStore.createAttachment(attachment, uploadedInputStream);
+		Message dummyMessage = new Message();
+		dummyMessage.setId(id);
+		messageStore.associateAttachment(dummyMessage, attachment);
 		ResponseBuilder response = Response.status(200).entity(true);
 		response = ensureCookie(cookie, response);
 		return response.build();

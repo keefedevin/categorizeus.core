@@ -1,6 +1,7 @@
 package us.categorize.api;
 
 import java.io.InputStream;
+import java.util.List;
 
 import us.categorize.model.Attachment;
 import us.categorize.model.Message;
@@ -18,6 +19,7 @@ public interface MessageStore {
 	boolean addMessageTag(String id, String tag, User user);
 	boolean removeMessageTag(String id, String tag, User user);
 	Attachment createAttachment(Attachment attachment, InputStream inputStream);
-	Attachment readAttachment(Message message);
+	List<Attachment> readAttachments(Message message);
 	Attachment updateAttachment(Attachment attachment);
+	boolean associateAttachment(Message message, Attachment attachment);
 }
