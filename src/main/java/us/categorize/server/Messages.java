@@ -29,6 +29,7 @@ import us.categorize.api.UserStore;
 import us.categorize.model.Attachment;
 import us.categorize.model.Message;
 import us.categorize.model.MetaMessage;
+import us.categorize.model.TagQuery;
 import us.categorize.model.User;
 
 @Path("/messages")
@@ -95,19 +96,35 @@ public class Messages {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response tagSearch(@CookieParam("categorizeus") Cookie cookie, @QueryParam("tags") String tags,
-			@QueryParam("loadMetadata") String loadMetadata, @QueryParam("pageOn") Integer pageOn,
-			@QueryParam("pageSize") Integer pageSize) {
+			@QueryParam("queryId") String queryId,
+			@QueryParam("loadMetadata") String loadMetadata, 
+			@QueryParam("before") String before,
+			@QueryParam("after") String after,
+			@QueryParam("count") Integer count,
+			@QueryParam("sort") String sort
+			) {
 		Response authCheck = authorizationCheck(cookie, "/messages", "GET");
 		if (authCheck != null)
 			return authCheck;
 		String tagArray[] = tags == null || "".equals(tags) ? new String[] {} : tags.split(",");
 		boolean loadMeta = loadMetadata == null ? false : Boolean.parseBoolean(loadMetadata);
+		TagQuery query = new TagQuery();
+		query.setTags(tagArray);
+		query.setLoadMetadata(loadMeta);
+		if(count!=null) {
+			query.setCount(count);
+		}
+		query.setId(queryId);
+		query.setSort(sort);
+		query.setAfter(after);
+		query.setBefore(before);
+		
 		ResponseBuilder response;
 		if (loadMeta) {
-			MetaMessage messages[] = messageStore.tagSearchFull(tagArray, pageOn, pageSize);
+			MetaMessage messages[] = messageStore.tagSearchFull(query);
 			response = Response.status(200).entity(messages);
 		} else {
-			Message messages[] = messageStore.tagSearch(tagArray, pageOn, pageSize);
+			Message messages[] = messageStore.tagSearch(query);
 			response = Response.status(200).entity(messages);
 		}
 		response = ensureCookie(cookie, response);

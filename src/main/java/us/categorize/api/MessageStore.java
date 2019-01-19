@@ -6,12 +6,13 @@ import java.util.List;
 import us.categorize.model.Attachment;
 import us.categorize.model.Message;
 import us.categorize.model.MetaMessage;
+import us.categorize.model.TagQuery;
 import us.categorize.model.User;
 
 public interface MessageStore {
 	Message createMessage(Message message);//message marshalled from transport is input
-	Message[] tagSearch(String tags[], Integer pageOn, Integer pageSize);
-	MetaMessage[] tagSearchFull(String tags[], Integer pageOn, Integer pageSize);
+	Message[] tagSearch(TagQuery query);
+	MetaMessage[] tagSearchFull(TagQuery query);
 	Message readMessage(String id);
 	MetaMessage[] readMessageThread(String id);
 	boolean deleteMessage(String id);
