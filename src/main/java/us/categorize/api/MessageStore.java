@@ -22,4 +22,8 @@ public interface MessageStore {
 	List<Attachment> readAttachments(Message message);
 	Attachment updateAttachment(Attachment attachment);
 	boolean associateAttachment(Message message, Attachment attachment);
+	boolean signAttachment(Attachment attachment, String signature);//TODO should this be in attachment model as string list?
+	Attachment findSignedAttachment(String signature);
+	Attachment[] findAssociatedAttachments(Attachment attachment);
+	
 }
